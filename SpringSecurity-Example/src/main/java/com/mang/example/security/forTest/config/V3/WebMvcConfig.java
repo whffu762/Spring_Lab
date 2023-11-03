@@ -1,4 +1,4 @@
-package com.mang.example.security.config.V2;
+package com.mang.example.security.forTest.config.V3;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-
-    @Bean //Bean 등록과 의존성 주입 여부 테스트 과정에서 순환 참조 방지를 위해 여기서 등록
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

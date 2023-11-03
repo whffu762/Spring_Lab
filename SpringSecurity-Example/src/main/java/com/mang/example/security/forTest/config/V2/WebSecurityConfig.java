@@ -1,31 +1,46 @@
-package com.mang.example.security.config.V3;
+package com.mang.example.security.forTest.config.V2;
 
+import com.mang.example.security.app.user.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
-//@Component
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailsServiceImpl userDetailsService;
     private final CustomAuthenticationProvider customAuthenticationProvider;
-    private final CustomAuthenticationFilter customAuthenticationFilter;
+    private final CustomLoginSuccessHandler customLoginSuccessHandler;
+
+    /**
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+     pwEncoder 빈 등록을 여기서 하면 Provider 클래스와 순환 참조가 발생함
+     config 는 Provider 를 주입받고 Provider 는 config 의 pwEncoder 를 주입받으면서 순환 참조가 발생
+     그래서 WebMvcConfig 에서 등록함
+     **/
 
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception{
-        return super.authenticationManager();
+    public CustomAuthenticationFilter customAuthenticationFilter() throws Exception{
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager());
+        customAuthenticationFilter.setFilterProcessesUrl("/user/login");
+        customAuthenticationFilter.setAuthenticationSuccessHandler(customLoginSuccessHandler);
+        customAuthenticationFilter.afterPropertiesSet();
+
+        return customAuthenticationFilter;
     }
+
 
     // 정적 자원에 대해서는 Security 설정을 적용하지 않음.
     @Override
@@ -45,15 +60,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 로그인하는 경우에 대해 설정함
             .formLogin()
-                // 로그인 페이지를 제공하는 URL을 설정함
+                // 로그인 페이지를 제공하는 URL 을 설정함
                 .loginPage("/user/loginView")
-                // 로그인 성공 URL을 설정함
+                // 로그인 성공 URL 을 설정함
                 .successForwardUrl("/index")
-                // 로그인 실패 URL을 설정함
+                // 로그인 실패 URL 을 설정함
                 .failureForwardUrl("/index")
                 .permitAll()
                 .and()
-                .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 ;
     }
 

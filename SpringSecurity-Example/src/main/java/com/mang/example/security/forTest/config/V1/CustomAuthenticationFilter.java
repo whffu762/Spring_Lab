@@ -1,4 +1,4 @@
-package com.mang.example.security.config.V1;
+package com.mang.example.security.forTest.config.V1;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Log4j2
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
         super.setAuthenticationManager(authenticationManager);

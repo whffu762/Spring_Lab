@@ -13,8 +13,8 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(excludeFilters = {
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.config\\.V2\\..*"}),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.config\\.V3\\..*"})
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.forTest\\.config\\.V2\\..*"}),
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.forTest\\.config\\.V3\\..*"})
 })
 public class SecurityApplication extends SpringBootServletInitializer {
 

@@ -1,4 +1,4 @@
-package com.mang.example.security.config.V3;
+package com.mang.example.security.forTest.config.V3;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package com.mang.example.security.config.V2;
+package com.mang.example.security.forTest.config.V2;
 
 import com.mang.example.security.app.user.model.UserDetailsVO;
 import lombok.RequiredArgsConstructor;

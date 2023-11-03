@@ -1,4 +1,4 @@
-package com.mang.example.security.config.V1;
+package com.mang.example.security.forTest.config.V1;
 
 import com.mang.example.security.app.user.service.UserDetailsServiceImpl;
 import com.mang.example.security.forTest.testClass;
