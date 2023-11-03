@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 //예외와 에러 페이즈를 출력할 컨트롤러가 매핑
+//Spring 이 제공해주는 기능을 사용하기 위해 꺼둠
 //@Component
 public class ControllerErrorMapping implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 

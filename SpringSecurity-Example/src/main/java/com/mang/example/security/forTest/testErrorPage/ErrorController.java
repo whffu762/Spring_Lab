@@ -45,6 +45,4 @@ public class ErrorController {
     public String errorRuntime(){
         return "error/runtime";
     }
-
-
 }
