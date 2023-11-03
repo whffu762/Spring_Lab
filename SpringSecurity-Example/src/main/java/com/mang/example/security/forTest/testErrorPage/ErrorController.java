@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+//에러 페이지를 출력할 컨트롤러
 @Controller
 @RequestMapping("/errorPage")
 public class ErrorController {

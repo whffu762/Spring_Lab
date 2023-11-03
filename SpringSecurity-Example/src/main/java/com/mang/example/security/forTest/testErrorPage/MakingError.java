@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+//테스트를 위해 Error 를 유발하는 요청으로 이루어진 컨트롤러
 @Controller
 @Slf4j
 public class MakingError {
