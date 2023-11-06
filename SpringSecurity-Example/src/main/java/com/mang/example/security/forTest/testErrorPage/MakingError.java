@@ -31,4 +31,10 @@ public class MakingError {
         log.info("Runtime 에러 유도");
         throw new RuntimeException();
     }
+
+    @GetMapping("/IllegalRequest")
+    public void errorIllegal() {
+        log.info("IllegalArgumentException 에러 유도");
+        throw new IllegalArgumentException();
+    }
 }
