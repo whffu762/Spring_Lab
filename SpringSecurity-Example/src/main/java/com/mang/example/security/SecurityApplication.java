@@ -13,9 +13,16 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(excludeFilters = {
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.forTest\\.config\\.V2\\..*"}),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {"com\\.mang\\.example\\.security\\.forTest\\.config\\.V3\\..*"})
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = {
+                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V2\\..*",
+                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V3\\..*",
+//                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V1\\..*",
+                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V4\\..*"
+        })
 })
+
+//redis 설정
+//@EnableRedisHttpSession
 public class SecurityApplication extends SpringBootServletInitializer {
 
     @Override

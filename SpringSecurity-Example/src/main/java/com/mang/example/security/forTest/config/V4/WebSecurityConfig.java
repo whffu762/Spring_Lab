@@ -1,6 +1,7 @@
-package com.mang.example.security.forTest.config.V1;
+package com.mang.example.security.forTest.config.V4;
 
 import com.mang.example.security.app.user.service.UserDetailsServiceImpl;
+import com.mang.example.security.forTest.config.V1.CustomLoginSuccessHandler;
 import com.mang.example.security.forTest.testClass;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,24 +28,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public CustomAuthenticationProvider customAuthenticationProvider(){
-//        return new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder(), testClass());
-//    }
+    @Bean
+    public CustomAuthenticationProvider customAuthenticationProvider(){
+        return new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder(), testClass());
+    }
     @Bean
     testClass testClass(){
         return new testClass(bCryptPasswordEncoder());
     }
     @Bean
-    public CustomLoginSuccessHandler customLoginSuccessHandler(){
-        return new CustomLoginSuccessHandler();
-    }
-    @Bean
     public CustomAuthenticationFilter customAuthenticationFilter() throws Exception{
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager());
         customAuthenticationFilter.setFilterProcessesUrl("/user/login");
-        customAuthenticationFilter.setAuthenticationSuccessHandler(customLoginSuccessHandler());
         customAuthenticationFilter.afterPropertiesSet();
 
         return customAuthenticationFilter;
@@ -78,14 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureForwardUrl("/index")
                 .permitAll()
                 .and()
-                .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-
-                .logout()
-                .logoutUrl("/auth/logout");
+                .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-//    @Override
-//    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
-//        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
-//    }
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
+    }
 }

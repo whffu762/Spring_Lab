@@ -6,13 +6,7 @@ plugins {
 
 group = 'com.mang.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+sourceCompatibility = "11"
 
 repositories {
     mavenCentral()
@@ -20,22 +14,33 @@ repositories {
 
 
 dependencies {
-    implementation 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     
     implementation 'org.springframework.boot:spring-boot-starter-security'
     
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    
+
+    //redis
+    //implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //implementation 'org.springframework.session:spring-session-data-redis'
+
+    //ConfigurationProperties 어노테이션 사용 시 spring boot configuration annotation processor not configured 발생 해결
+    //annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
     compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
     
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
 }
+
+configurations {
+    annotationProcessor.extendsFrom compileOnly
+}
+
 
 test {
     useJUnitPlatform()

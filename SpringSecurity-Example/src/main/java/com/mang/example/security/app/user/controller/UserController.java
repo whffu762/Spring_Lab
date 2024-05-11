@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping(value = "/init")
     public String createAdmin(@ModelAttribute UserVO userVO){
 
-        log.info("Controller1 passwordEncoder = {}", passwordEncoder);
+        //log.info("Controller1 passwordEncoder = {}", passwordEncoder);
         userVO.setUserEmail("user@naver.com");
         userVO.setUserPw(passwordEncoder.encode("test"));
         userVO.setRole(UserRole.USER);
@@ -55,7 +55,7 @@ public class UserController {
             log.error("Create Admin Error");
         }
 
-        log.info("Controller2 passwordEncoder = {}", passwordEncoder);
+        //log.info("Controller2 passwordEncoder = {}", passwordEncoder);
         userVO.setId(null);
         userVO.setUserEmail("admin@naver.com");
         userVO.setUserPw(passwordEncoder.encode("test"));

@@ -18,6 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetailsVO loadUserByUsername(String userEmail) {
-        return userRepository.findByUserEmail(userEmail).map(u -> new UserDetailsVO(u, Collections.singleton(new SimpleGrantedAuthority(u.getRole().getValue())))).orElseThrow(() -> new UserNotFoundException(userEmail));
+        return userRepository.findByUserEmail(userEmail).map(u ->
+                        new UserDetailsVO(u, Collections.singleton(
+                                new SimpleGrantedAuthority(u.getRole().getValue())
+                        ))
+                )
+                .orElseThrow(() -> new UserNotFoundException(userEmail));
     }
 }
