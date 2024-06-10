@@ -23,8 +23,6 @@ import org.springframework.context.annotation.FilterType;
                 "com\\.mang\\.example\\.security\\.enums\\..*",
                 "com\\.mang\\.example\\.security\\.exception\\..*",
                 "com\\.mang\\.example\\.security\\.forTest\\..*",
-
-
         })
 })
 
