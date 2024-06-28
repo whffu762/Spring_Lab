@@ -1,1 +1,1 @@
-SpringPrac
+Spring의 여러 기능들을 구현해보는 연습장
