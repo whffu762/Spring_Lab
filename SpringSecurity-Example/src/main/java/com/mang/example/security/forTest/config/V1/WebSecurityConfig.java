@@ -28,10 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public CustomAuthenticationProvider customAuthenticationProvider(){
-//        return new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder(), testClass());
-//    }
     @Bean
     testClass testClass(){
         return new testClass(bCryptPasswordEncoder());
@@ -84,8 +80,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/auth/logout");
     }
 
-//    @Override
-//    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
-//        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
-//    }
+    @Bean
+    public CustomAuthenticationProvider customAuthenticationProvider(){
+        return new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder(), testClass());
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
+    }
 }
