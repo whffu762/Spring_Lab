@@ -8,6 +8,22 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/*
+    테스트 내용
+    1. 생성자 주입과 세터 주입, 필드 주입 중 어떤 주입이 먼저 주입될까
+    2. 주입될 객체 중 어떤 객체가 먼저 생성될까
+    
+    구조 
+    Car 에 door, window, wheel 이 각각 주입되는 상황
+    door - 생성자 주입
+    window - 필드 주입
+    wheel - setter 주입
+    
+    테스트 케이스
+    자동 등록과 수동 등록 두 가지 경우가 존재함
+ */
+
+
 @SpringBootTest
 public class TestInjection {
 
