@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${Member}" th:action="@{/test/input}" method="post">
+
+    <label for="id"></label>
+    <input type="text" th:field="*{id}" id="id">
+
+    <label for="pw"></label>
+    <input type="text" th:field="*{password}" id="pw">
+    <button type="submit">전송</button>
+</form>
+
+<form action="/test/input2" method="post">
+    <label for="id2"></label>
+    <input type="text" id="id2" name="id">
+
+    <label for="pw2"></label>
+    <input type="text" id="pw2" name="password">
+    <button type="submit">전송</button>
+</form>
+
+<div th:object="${Member}">
+    <div th:text="*{id}"></div>
+    <div th:text="*{password}"></div>
+</div>
+
+<div>
+    <div th:text="${id}"></div>
+    <div th:text="${password}"></div>
+</div>
+
+
+</body>
+</html>
