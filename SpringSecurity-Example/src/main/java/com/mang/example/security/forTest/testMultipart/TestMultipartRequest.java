@@ -39,7 +39,7 @@ public class TestMultipartRequest {
 
         model.addAttribute("Member", new Member());
 
-        return "test/formData";
+        return "/test/formData";
     }
 
     @PostMapping("/input")
