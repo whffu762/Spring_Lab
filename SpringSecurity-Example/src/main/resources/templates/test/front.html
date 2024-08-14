@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" action="/test/front">
+    <input type="text" name="imageName">
+    <button type="submit">전송</button>
+</form>
+<div th:text="${imageName}"></div>
+<hr>
+
+<form method="post" action="/test/front" enctype="multipart/form-data">
+    <input type="file" name="inputImage" accept="image/*">
+    <button type="submit">입력</button>
+</form>
+<img th:src="'data:image/*;base64,' + ${image}" alt="image">
+<hr>
+
+<button type="button" id="acceptBtn">accept json button</button>
+<div id="acceptResult"></div>
+<hr>
+
+<div>
+    QueryParameter 존재 여부에 따라 다른 컨트롤러 호출
+    /test/front?data=hello
+</div>
+<div th:text="${data}"></div>
+<hr>
+
+<div>
+    PathVariable 존재 여부에 따라 다른 컨트롤러 호출
+    /test/front/hello
+</div>
+<div th:text="${data2}"></div>
+<hr>
+
+
+</body>
+</html>
+<script>
+    const button = document.getElementById("acceptBtn");
+    button.addEventListener("click", function(){
+
+        const result = document.getElementById("acceptResult");
+
+        const url = "/test/front";
+        fetch(url, {
+            method : "GET",
+            headers : {
+                "Accept": "application/json"
+            }
+        }).then(response => {
+            console.log("body : " + response.body);
+            return response.json();
+        }).then(json => {
+            console.log("json : " + json);
+            result.innerText = json.name;
+        })
+    });
+</script>
