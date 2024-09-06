@@ -1,9 +1,11 @@
 package com.mang.example.security.forTest.testFrontController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,5 +61,12 @@ public class TestFrontController {
 
         model.addAttribute("data2", data);
         return "/test/front";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/test/front", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Dto front5(@RequestBody Dto dto){
+
+        return dto;
     }
 }

@@ -38,6 +38,12 @@
 <div th:text="${data2}"></div>
 <hr>
 
+<form method="post" action="/test/front">
+    <input type="text" id="inputName">
+    <button type="button" id="acceptBtn2">전송</button>
+</form>
+<div id="resultResponseEntity"></div>
+<hr>
 
 </body>
 </html>
@@ -53,6 +59,31 @@
             headers : {
                 "Accept": "application/json"
             }
+        }).then(response => {
+            console.log("body : " + response.body);
+            return response.json();
+        }).then(json => {
+            console.log("json : " + json);
+            result.innerText = json.name;
+        })
+    });
+
+    const button2 = document.getElementById("acceptBtn2");
+    button2.addEventListener("click", function(){
+
+        const result = document.getElementById("resultResponseEntity");
+        const data = {
+            name : document.getElementById("inputName").value
+        }
+
+        const url = "/test/front";
+        fetch(url, {
+            method : "POST",
+            headers : {
+                "Accept": "application/json",
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(data)
         }).then(response => {
             console.log("body : " + response.body);
             return response.json();
