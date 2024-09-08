@@ -2,13 +2,15 @@ package com.mang.example.security.forTest.testAOP;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
-public class UserService {
+public class AOPUserService {
 
     private final AOPUserRepository repository;
 
@@ -18,7 +20,7 @@ public class UserService {
 
         for(UserDTO user : users){
             checkValid(user);
-            repository.update(user.getUserEmail());
+            repository.update(user.getName());
         }
     }
 
@@ -29,7 +31,7 @@ public class UserService {
 
         for(UserDTO user : users){
             checkValid(user);
-            repository.update(user.getUserEmail());
+            repository.update(user.getName());
         }
     }
 

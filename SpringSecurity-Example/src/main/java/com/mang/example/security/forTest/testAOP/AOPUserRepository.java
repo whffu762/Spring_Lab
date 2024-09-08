@@ -4,12 +4,14 @@ import com.mang.example.security.enums.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 @RequiredArgsConstructor
 public class AOPUserRepository {
 
@@ -26,13 +28,19 @@ public class AOPUserRepository {
     }
 
     public UserDTO save(UserDTO user) throws SQLException {
-        String sql = "INSERT INTO USER(user_email, role) VALUES (?, ?)";
+        String sql = "INSERT INTO MEMBER (name, role) VALUES (?, ?)";
 
         Connection con = getConnection();
         PreparedStatement statement = con.prepareStatement(sql);
 
-        statement.setString(1, user.getUserEmail());
-        statement.setString(2, user.getRole().getValue());
+        statement.setString(1, user.getName());
+
+        if(user.getRole() == null){
+            statement.setString(2, null);
+        } else {
+            statement.setString(2, user.getRole().getValue());
+        }
+        statement.executeUpdate();
 
         close(con, statement, null);    //반드시 닫아줘야 하기 때문에 예외가 터져도 닫히게끔 해야 함
 
@@ -40,19 +48,20 @@ public class AOPUserRepository {
     }
 
     public void update(String userEmail) throws SQLException{
-        String sql = "UPDATE USER SET role=? WHERE user_email=?";
+        String sql = "UPDATE MEMBER SET role=? WHERE name=?";
 
         Connection con = getConnection();
         PreparedStatement statement = con.prepareStatement(sql);
 
         statement.setString(1, UserRole.ADMIN.getValue());
         statement.setString(2, userEmail);
+        statement.executeUpdate();
 
         close(con, statement, null);
     }
 
     public List<UserDTO> findAll() throws SQLException{
-        String sql = "SELECT * FROM USER";
+        String sql = "SELECT * FROM MEMBER";
 
         Connection con = getConnection();;
         PreparedStatement statement = con.prepareStatement(sql);
@@ -60,14 +69,46 @@ public class AOPUserRepository {
 
         List<UserDTO> result = new ArrayList<>();
         while (rs.next()){
-            result.add(UserDTO.builder()
-                    .userEmail(rs.getString("user_email"))
-                    .role(UserRole.valueOf(rs.getString("role")))
-                    .build());
+            UserDTO user = UserDTO.builder()
+                    .name(rs.getString("name"))
+                    .role(UserRole.exchange(rs.getString("role")))
+                    .build();
+
+            result.add(user);
         }
 
         close(con, statement, rs);
 
+        return result;
+    }
+
+    public void delete() throws SQLException{
+        String sql = "TRUNCATE TABLE MEMBER";
+
+        Connection con = getConnection();;
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.executeUpdate();
+
+        close(con, statement, null);
+    }
+
+    public UserDTO findByName(String name) throws SQLException{
+        String sql = "SELECT * FROM MEMBER WHERE name = ?";
+
+        Connection con = getConnection();
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+
+        UserDTO result = null;
+        if (rs.next()){
+            result = UserDTO.builder()
+                    .name(rs.getString("name"))
+                    .role(UserRole.exchange(rs.getString("role")))
+                    .build();
+        }
+
+        close(con, statement, rs);
         return result;
     }
 }

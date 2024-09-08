@@ -12,7 +12,7 @@ import lombok.Setter;
 @Builder
 public class UserDTO {
 
-    private String userEmail;
+    private String name;
 
     private UserRole role;
 }
