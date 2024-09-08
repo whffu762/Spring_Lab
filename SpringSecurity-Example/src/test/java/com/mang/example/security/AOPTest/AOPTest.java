@@ -145,4 +145,27 @@ public class AOPTest {
         log.info("service = {}", service.getClass());
         log.info("repository = {}", repository.getClass());
     }
+
+    @DisplayName("내꺼 트랜잭션 + 정상 동작")
+    @Test
+    public void testAOP3() throws SQLException{
+
+        //wrongData();
+
+        service.myLogicWithMyTx();
+    }
+
+
+    @DisplayName("내꺼 트랜잭션 + 비정상 동작")
+    @Test
+    public void testAOP4() throws SQLException{
+
+        //wrongData();
+
+        assertThatThrownBy(() -> {
+            service.myLogicWithMyTx();
+        })
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("NO ROLE ERROR");
+    }
 }

@@ -1,6 +1,7 @@
 package com.mang.example.security.forTest.testAOP;
 
 
+import com.mang.example.security.forTest.testAOP.myAOP.MyTransactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,17 @@ public class AOPUserService {
 
     @Transactional
     public void myLogic() throws SQLException {
+
+        List<UserDTO> users = repository.findAll();
+
+        for(UserDTO user : users){
+            checkValid(user);
+            repository.update(user.getName());
+        }
+    }
+
+    @MyTransactional
+    public void myLogicWithMyTx() throws SQLException {
 
         List<UserDTO> users = repository.findAll();
 
