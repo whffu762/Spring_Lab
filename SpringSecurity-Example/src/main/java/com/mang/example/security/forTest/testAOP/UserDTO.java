@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
 public class UserDTO {
 
     private String name;
