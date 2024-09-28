@@ -5,6 +5,8 @@ import com.mang.example.security.forTest.testAOP.AOPUserRepository;
 import com.mang.example.security.forTest.testAOP.AOPUserService;
 import com.mang.example.security.forTest.testAOP.UserDTO;
 import com.mang.example.security.forTest.testTxPropagation.TxPropagation;
+import com.mang.example.security.forTest.testTxPropagation.TxService;
+import com.mang.example.security.forTest.testTxPropagation.TxService2;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class TxPropagationTest {
     @Autowired
     TxPropagation txPropagation;
 
+    @Autowired
+    TxService2 txService2;
+
     @TestConfiguration
     static class testConfig{
 
@@ -41,6 +46,11 @@ public class TxPropagationTest {
         @Bean
         TxPropagation txPropagation() { return new TxPropagation(repository()); }
 
+        @Bean
+        TxService txServiceTest() { return new TxService(txPropagation(), repository()); }
+
+        @Bean
+        TxService2 txService2Test() { return new TxService2(txServiceTest(), repository()); }
     }
 
     @Test
@@ -50,5 +60,9 @@ public class TxPropagationTest {
 
     }
 
+    @Test
+    public void test2() throws SQLException{
 
+        txService2.test(new UserDTO("kim", UserRole.USER));
+    }
 }
