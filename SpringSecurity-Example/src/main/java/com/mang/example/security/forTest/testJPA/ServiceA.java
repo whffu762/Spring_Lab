@@ -28,7 +28,7 @@ public class ServiceA {
         log.info("em testA : {}", entityManager);
 
         //같은 트랜잭션인지 확인
-        log.info("tx testB : {}", TransactionSynchronizationManager.getCurrentTransactionName());
+        log.info("tx testA : {}", TransactionSynchronizationManager.getCurrentTransactionName());
 
         UserDTO user = new UserDTO();
         user.setName(name);
