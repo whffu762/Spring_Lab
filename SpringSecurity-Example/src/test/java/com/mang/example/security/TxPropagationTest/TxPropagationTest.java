@@ -55,14 +55,20 @@ public class TxPropagationTest {
 
     @Test
     public void test() throws SQLException {
-
-        txPropagation.outerTx(new UserDTO("Exception", UserRole.USER));
+        /*
+            outer 내부에서 inner 를 호출하는데 각각 트랜잭션 어노테이션이 붙어있음 두 트랜잭션은 과연 같을까? 다를까?
+        */
+        txPropagation.outerTx(new UserDTO("kim", UserRole.USER));
 
     }
 
     @Test
     public void test2() throws SQLException{
-
+    
+        /*
+            아예 다른 클래스 txService2 안에서 txService 를 호출하고 그 안에선 txPropagation 을 호출하면 같을까 다를까
+         */
         txService2.test(new UserDTO("kim", UserRole.USER));
+
     }
 }
