@@ -13,12 +13,10 @@ import java.util.List;
 public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String name;
 
-    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    //@OneToMany(mappedBy = "team", orphanRemoval = true)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> members = new ArrayList<>();
 
     public Team (String name){
