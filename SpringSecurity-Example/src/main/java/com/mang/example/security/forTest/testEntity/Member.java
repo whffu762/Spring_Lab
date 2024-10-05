@@ -2,12 +2,14 @@ package com.mang.example.security.forTest.testEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class Member {
 
     @Id

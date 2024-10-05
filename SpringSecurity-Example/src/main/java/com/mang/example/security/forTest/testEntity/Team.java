@@ -3,10 +3,9 @@ package com.mang.example.security.forTest.testEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +17,9 @@ public class Team {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    private List<Member> members = new ArrayList<>();
 
     public Team (String name){
         this.name = name;

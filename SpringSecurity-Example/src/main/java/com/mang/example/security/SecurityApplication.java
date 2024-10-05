@@ -17,11 +17,11 @@ import org.springframework.context.annotation.FilterType;
                 "com\\.mang\\.example\\.security\\.forTest\\.config\\.V2\\..*",
                 "com\\.mang\\.example\\.security\\.forTest\\.config\\.V3\\..*",
                 "com\\.mang\\.example\\.security\\.forTest\\.config\\.V4\\..*",
-//                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V1\\..*",
+                "com\\.mang\\.example\\.security\\.forTest\\.config\\.V1\\..*",
 //
-//                "com\\.mang\\.example\\.security\\.app\\..*",
-//                "com\\.mang\\.example\\.security\\.enums\\..*",
-//                "com\\.mang\\.example\\.security\\.exception\\..*",
+                "com\\.mang\\.example\\.security\\.app\\..*",
+                "com\\.mang\\.example\\.security\\.enums\\..*",
+                "com\\.mang\\.example\\.security\\.exception\\..*",
 //                "com\\.mang\\.example\\.security\\.forTest\\..*"
         })
 })

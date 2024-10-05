@@ -32,7 +32,17 @@ public class EntityTest {
 
         Member find = em.find(Member.class, 2L);
         Team findT = find.getTeam();
+
+        System.out.println("findT.getClass() = " + findT.getClass());
+        
         String name = findT.getName();
+
+        findT.getMembers().get(0).setTeam(null);
+
+        em.flush();
+        em.clear();
+
+        Member find2 = em.find(Member.class, 2L);
 
 
         tx.commit();
